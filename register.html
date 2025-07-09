@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+  </head>
+
+  <body>
+    <div class="auth-container">
+      <div class="auth-card card">
+        <div class="auth-header">
+          <h1>Create account</h1>
+          <p>Get started with your free account</p>
+        </div>
+
+        <form id="registerForm" class="auth-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <div class="form-group input-icon">
+              <div class="icon-box">
+                <i class="fas fa-user"></i>
+              </div>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            <div id="nameError" class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="form-group input-icon">
+              <div class="icon-box">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+            <div id="emailError" class="error-message"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="form-group input-icon">
+              <div class="icon-box">
+                <i class="fas fa-lock"></i>
+              </div>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <div id="passwordError" class="error-message"></div>
+          </div>
+
+          <button type="submit" class="btn">
+            <span>Create Account</span>
+          </button>
+        </form>
+
+        <div class="auth-switch">
+          Already have an account? <a href="index.html">Sign in</a>
+        </div>
+
+        <div class="auth-footer">
+          <p>Designed By Pola Mounir</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+
+        const isLoggedin = JSON.parse(sessionStorage.getItem("CURRENT_USER"))
+        console.log(isLoggedin)
+        if(isLoggedin) {
+          window.location.href = "profile.html";
+          return
+        }
+
+        const registerForm = document.getElementById("registerForm");
+
+        document.querySelectorAll(".form-control").forEach((input) => {
+          input.addEventListener("input", () => {
+            input.classList.remove("input-error");
+            document.getElementById(`${input.id}Error`).textContent = "";
+          });
+        });
+
+        registerForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim().toLowerCase();
+          const password = document.getElementById("password").value;
+
+          document.querySelectorAll(".error-message").forEach((el) => {
+            el.textContent = "";
+          });
+          document.querySelectorAll(".form-control").forEach((input) => {
+            input.classList.remove("input-error");
+          });
+
+          const validateData = ({ name, email, password }) => {
+            if (!name || !email || !password) {
+              return { isValid: false, error: "All fields are required.", location: "all" };
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              return { isValid: false, error: "Invalid email format.", location: "email" };
+            }
+
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+            if (!passwordRegex.test(password)) {
+              return { isValid: false, error: "Password must be at least 6 characters with 1 letter and 1 number.", location: "password" };
+            }
+
+            return { isValid: true };
+          };
+
+          const validation = validateData({ name, email, password });
+          if (!validation.isValid) {
+      
+            const errorField = document.getElementById(`${validation.location}Error`);
+            const inputField = document.getElementById(validation.location);
+            errorField.textContent = validation.error;
+            inputField.classList.add("input-error");
+            return;
+          }
+
+
+          const storedUsers = JSON.parse(localStorage.getItem("USERS")) || [];
+          const userExists = storedUsers.some((user) => user.email === email);
+          if (userExists) {
+            document.getElementById("emailError").textContent = "An account with this email already exists.";
+            document.getElementById("email").classList.add("input-error");
+            return;
+          }
+
+    
+          storedUsers.push({ name, email, password });
+          localStorage.setItem("USERS", JSON.stringify(storedUsers));
+          console.log("Account created successfully!");
+          window.location.href = "index.html";
+        });
+      });
+    </script>
+  </body>
+</html>

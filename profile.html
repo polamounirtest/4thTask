@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="profile-container">
+      <div class="profile-card card">
+        <div class="profile-avatar" id="avatar"></div>
+
+        <div class="profile-info">
+          <h1 id="profileName">Loading...</h1>
+          <p id="profileEmail">user@example.com</p>
+        </div>
+
+        <div class="profile-actions">
+          <button id="logoutBtn" class="btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+        <div class="auth-footer">
+          <p>Designed By Pola Mounir</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+
+        const isLoggedin = JSON.parse(sessionStorage.getItem("CURRENT_USER"))
+        console.log(isLoggedin)
+        if(!isLoggedin) {
+          window.location.href = "index.html";
+          return
+        }
+        const user = JSON.parse(sessionStorage.getItem("CURRENT_USER"));
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        document.getElementById("profileName").textContent = user.name;
+        document.getElementById("profileEmail").textContent = user.email;
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        const initials = user.name
+          .split(" ")
+          .map((n) => n[0])
+          .join("")
+          .toUpperCase();
+        document.getElementById("avatar").textContent = initials;
+
+        function logout() {
+          sessionStorage.removeItem("CURRENT_USER");
+          window.location.href = "index.html";
+        }
+
+        logoutBtn.addEventListener("click", logout);
+      });
+    </script>
+  </body>
+</html>

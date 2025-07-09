@@ -1,0 +1,263 @@
+:root {
+  --primary: #2bcaa2;
+  --primary-dark: #0db48b;
+  --dark: #212529;
+  --gray: #6c757d;
+  --border-radius: 12px;
+  --box-shadow: 0 8px 20px rgba(2, 128, 90, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--dark);
+  background-color: #f5f7ff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary);
+  color: white;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(67, 97, 238, 0.1);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 40px;
+}
+
+.card:hover {
+  /* transform: translateY(-5px); */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--gray);
+}
+
+.auth-switch a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+/* -------------------------------------------- */
+
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-header h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+
+.auth-header p {
+  color: var(--gray);
+}
+
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon .form-control {
+  padding-left: 40px;
+}
+
+.input-icon .icon-box {
+  position: absolute;
+  left: 16px;
+  top: 0%;
+  color: var(--gray);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.755rem;
+  margin-top: -15px;
+}
+.input-error {
+  border: 1px solid red !important;
+}
+/* ----------------------------------------------------- */
+.profile-container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0 auto 24px;
+  user-select: none;
+}
+
+.profile-info {
+  margin-bottom: 32px;
+}
+
+.profile-info h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.profile-info p {
+  color: var(--gray);
+  margin-bottom: 4px;
+}
+
+.profile-meta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.profile-actions .btn {
+  width: auto;
+  padding: 12px 24px;
+}
+
+@media (max-width: 576px) {
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-actions .btn {
+    width: 100%;
+  }
+}
